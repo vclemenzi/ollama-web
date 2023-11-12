@@ -55,18 +55,27 @@ function App() {
 
   return (
     <>
-      <div className="md:flex md:items-center md:justify-center md:h-screen">
-        <div className="md:w-[60%]">
-          <div>
-            <select className="md:rounded-md w-full mb-1 p-2 border-t md:border border-l-0 border-gray-400" onChange={(e) => setModel(e.target.value)}>
-              <option value="llama2" defaultChecked>llama2</option>
-              <option value="mistral">mistral</option>
-              <option value="codellama">codellama</option>
-              <option value="llama2-uncensored">llama2-uncensored</option>
-              <option value="orca-mini">orca-mini</option>
-            </select>
+      <div>
+        <div className="max-h-screen min-h-screen h-screen w-screen p-3">
+          {/* Navbar */}
+          <div className="flex p-3 items-center justify-between border-b border-gray-400 mb-2">
+            <div className="flex items-center">
+              <img src="/ollama.png" className="2-10 h-10 mr-2" />
+              <h1 className="font-bold select-none">Ollama Web</h1>
+            </div>
+            <div className="text-center">
+              <select className="text-right bg-transparent ml-2 cursor-pointer appearance-none hover:underline" onChange={(e) => setModel(e.target.value)}>
+                <option value="llama2" defaultChecked>llama2</option>
+                <option value="mistral">mistral</option>
+                <option value="codellama">codellama</option>
+                <option value="llama2-uncensored">llama2-uncensored</option>
+                <option value="orca-mini">orca-mini</option>
+              </select>
+            </div>
           </div>
-          <div className="w-full min-h-[94vh] max-h-[94vh] md:min-h-[650px] md:max-h-[650px] overflow-auto mb-2 border-gray-400 md:border p-3 rounded-md">
+
+          {/* Chat */}
+          <div className="w-full h-5/6 overflow-auto mb-2 -3">
             {/* Messages */}
             {chat.map((msg, i) => {
               if (msg.author === "bot") {
@@ -95,14 +104,14 @@ function App() {
 
           <div className="flex w-full">
             <input
-              className="md:rounded-l-md border-t md:border border-gray-400 p-2 focus:outline-none w-full"
+              className="rounded-l-md  border border-gray-400 p-2 focus:outline-none w-full"
               placeholder="Type something..."
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
             />
 
             <button
-              className="md:rounded-r-md p-2 bg-blue-500 text-white border-t md:border border-l-0 border-gray-400"
+              className="rounded-r-md p-2 bg-blue-500 text-white border-t border border-l-0 border-gray-400"
               onClick={handleClick}
             >
               {
