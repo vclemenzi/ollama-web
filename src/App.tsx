@@ -37,9 +37,9 @@ function App() {
 
   return (
     <>
-      <div className="flex items-center justify-center h-screen">
-        <div className="w-[60%]">
-          <div className="w-full min-h-[600px] max-h-[600px] overflow-auto mb-2 border-gray-400 border p-3 rounded-xl">
+      <div className="md:flex md:items-center md:justify-center md:h-screen">
+        <div className="md:w-[60%]">
+          <div className="w-full min-h-[94vh] max-h-[94vh] md:min-h-[650px] md:max-h-[650px] overflow-auto mb-2 border-gray-400 md:border p-3 rounded-xl">
             {/* Messages */}
             {chat.map((msg, i) => {
               if (msg.author === "bot") {
@@ -68,14 +68,14 @@ function App() {
 
           <div className="flex w-full">
             <input
-              className="rounded-l-md border border-gray-400 p-2 focus:outline-none w-full"
+              className="md:rounded-l-md border-t md:border border-gray-400 p-2 focus:outline-none w-full"
               placeholder="Type something..."
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
             />
 
             <button
-              className="rounded-r-md p-2 bg-blue-500 text-white border border-l-0 border-gray-400"
+              className="md:rounded-r-md p-2 bg-blue-500 text-white border-t md:border border-l-0 border-gray-400"
               onClick={handleClick}
             >
               {
