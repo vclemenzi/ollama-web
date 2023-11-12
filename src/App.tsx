@@ -10,6 +10,7 @@ function App() {
   const [chat, setChat] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [stream, setStream] = useState<string>("");
+  const [model, setModel] = useState<string>("llama2");
 
   const handleClick = async () => {
     if (!prompt) return;
@@ -21,7 +22,7 @@ function App() {
     const res = await fetch("http://localhost:11434/api/generate", {
       method: "POST",
       body: JSON.stringify({
-        "model": "llama2",
+        "model": model || "llama2",
         "prompt": prompt,
       }),
     });
@@ -56,6 +57,15 @@ function App() {
     <>
       <div className="md:flex md:items-center md:justify-center md:h-screen">
         <div className="md:w-[60%]">
+          <div>
+            <select className="md:rounded-md w-full mb-1 p-2 border-t md:border border-l-0 border-gray-400" onChange={(e) => setModel(e.target.value)}>
+              <option value="llama2" defaultChecked>llama2</option>
+              <option value="mistral">mistral</option>
+              <option value="codellama">codellama</option>
+              <option value="llama2-uncensored">llama2-uncensored</option>
+              <option value="orca-mini">orca-mini</option>
+            </select>
+          </div>
           <div className="w-full min-h-[94vh] max-h-[94vh] md:min-h-[650px] md:max-h-[650px] overflow-auto mb-2 border-gray-400 md:border p-3 rounded-md">
             {/* Messages */}
             {chat.map((msg, i) => {

@@ -4,9 +4,9 @@ Ollama web ui created using react, vite and tailwindcss.
 ## Features
 
 - Response Stream
+- Model change
 
 Coming soon:
-- Model change
 - Dark Mode 
 - More beautiful graphics
 
