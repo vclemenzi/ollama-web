@@ -9,30 +9,47 @@ function App() {
   const [prompt, setPrompt] = useState<string>("");
   const [chat, setChat] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [stream, setStream] = useState<string>("");
 
   const handleClick = async () => {
     if (!prompt) return;
 
     setChat([...chat, { author: "user", content: prompt }]);
     setLoading(true);
+    setStream("");
 
-    const data = await fetch("http://localhost:11434/api/generate", {
+    const res = await fetch("http://localhost:11434/api/generate", {
       method: "POST",
       body: JSON.stringify({
         "model": "llama2",
         "prompt": prompt,
-        "stream": false,
       }),
-    }).then((res) => res.json());
+    });
 
-    setPrompt("");
-    setLoading(false);
+    const body = res.body;
+    const reader = body.getReader();
+    const textDecoder = new TextDecoder('utf-8');
 
-    if (!data.response) {
-      return setChat(oldChat => [...oldChat, { author: "bot", content: "Something went wrong!" }]);
+    let response = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      const data: { response: string, done: boolean } = JSON.parse(textDecoder.decode(value).toString());
+
+      if (data.done || done) {
+        break;
+      } else {
+        response += data.response;
+
+        setStream(response);
+      }
     }
 
-    return setChat(oldChat => [...oldChat, { author: "bot", content: data.response }]);
+    setLoading(false);
+    setChat(oldChat => [...oldChat, { author: "bot", content: response }]);
+    setPrompt("");
+
+    reader.releaseLock();
   };
 
   return (
@@ -60,7 +77,7 @@ function App() {
             {
               loading ? <div>
                 <div className="border-gray-400 border rounded-xl p-2 max-w-[70%] mb-5">
-                  ...
+                  {stream}
                 </div>
               </div> : <></>
             }
