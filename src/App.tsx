@@ -56,7 +56,7 @@ function App() {
     <>
       <div className="md:flex md:items-center md:justify-center md:h-screen">
         <div className="md:w-[60%]">
-          <div className="w-full min-h-[94vh] max-h-[94vh] md:min-h-[650px] md:max-h-[650px] overflow-auto mb-2 border-gray-400 md:border p-3 rounded-xl">
+          <div className="w-full min-h-[94vh] max-h-[94vh] md:min-h-[650px] md:max-h-[650px] overflow-auto mb-2 border-gray-400 md:border p-3 rounded-md">
             {/* Messages */}
             {chat.map((msg, i) => {
               if (msg.author === "bot") {
