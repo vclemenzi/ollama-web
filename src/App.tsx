@@ -75,9 +75,9 @@ function App() {
             })}
 
             {
-              loading ? <div>
+              loading ? <div className="flex justify-start mb-5">
                 <div className="border-gray-400 border rounded-xl p-2 max-w-[70%] mb-5">
-                  {stream}
+                  {stream ? stream : "..."}
                 </div>
               </div> : <></>
             }
